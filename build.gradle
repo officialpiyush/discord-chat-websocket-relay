@@ -1,9 +1,13 @@
 plugins {
-    id 'java'
+    id'java'
+    id'application'
+    id'com.github.johnrengelman.shadow' version '4.0.4'
 }
 
+mainClassName = 'io.github.officialpiyush.socketchat.bot.Bot'
+
 group 'io.github.officialpiyush'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 sourceCompatibility = 1.8
 
