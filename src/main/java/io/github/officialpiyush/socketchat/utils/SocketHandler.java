@@ -1,6 +1,5 @@
 package io.github.officialpiyush.socketchat.utils;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.GenericEvent;;
 import org.java_websocket.client.WebSocketClient;
@@ -25,7 +24,7 @@ public class SocketHandler extends WebSocketClient {
     @Override
     public void onOpen(ServerHandshake handshakedata) {
         if (this.toReply) {
-            TextChannel channel = this.event.getJDA().getTextChannelById(Long.parseLong("622089487672934402"));
+            TextChannel channel = this.event.getJDA().getTextChannelById(Long.parseLong(env.get("DISCORD_CHANNEL_ID")));
             send("[Connection] Established - socket-chat backend");
 
             channel.sendMessage("[Connection] Established - socket-chat backend").queue();
@@ -37,7 +36,7 @@ public class SocketHandler extends WebSocketClient {
     @Override
     public void onMessage(String message) {
         if (this.toReply && !message.startsWith("Discord:")) {
-            TextChannel channel = this.event.getJDA().getTextChannelById(Long.parseLong("622089487672934402"));
+            TextChannel channel = this.event.getJDA().getTextChannelById(Long.parseLong(env.get("DISCORD_CHANNEL_ID")));
 
             channel.sendMessage(message).queue();
         }
@@ -46,7 +45,7 @@ public class SocketHandler extends WebSocketClient {
     @Override
     public void onClose(int code, String reason, boolean remote) {
         if (this.toReply) {
-            TextChannel channel = this.event.getJDA().getTextChannelById(Long.parseLong("622089487672934402"));
+            TextChannel channel = this.event.getJDA().getTextChannelById(Long.parseLong(env.get("DISCORD_CHANNEL_ID")));
 
             channel.sendMessage("[CONNECTION] Closed").queue();
         }
@@ -55,7 +54,7 @@ public class SocketHandler extends WebSocketClient {
     @Override
     public void onError(Exception ex) {
         if (this.toReply) {
-            TextChannel channel = this.event.getJDA().getTextChannelById(Long.parseLong("622089487672934402"));
+            TextChannel channel = this.event.getJDA().getTextChannelById(Long.parseLong(env.get("DISCORD_CHANNEL_ID")));
 
             channel.sendMessage("[Websocket] Exception ```" + ex.toString() + "```").queue();
         }

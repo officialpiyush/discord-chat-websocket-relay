@@ -44,7 +44,7 @@ public class Bot extends ListenerAdapter {
 
     @Override
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent event) {
-        if (event.getChannel().getId().equals("622089487672934402") && !event.getAuthor().getId().equals(event.getJDA().getSelfUser().getId())) {
+        if (event.getChannel().getId().equals(env.get("DISCORD_CHANNEL_ID")) && !event.getAuthor().getId().equals(event.getJDA().getSelfUser().getId())) {
             try {
                 SocketHandler s = new SocketHandler(event, false, Optional.of("Discord: " + event.getMessage().getContentRaw()));
                 s.connect();
