@@ -35,7 +35,7 @@ public class Bot extends ListenerAdapter {
         System.out.println("[ DISCORD ] Bot Ready!");
 
         try {
-            SocketHandler s = new SocketHandler(event, true, Optional.empty());
+            SocketHandler s = new SocketHandler(event, true, Optional.empty(), Optional.empty(), Optional.empty());
             s.connect();
         } catch (URISyntaxException e) {
             e.printStackTrace();
@@ -46,7 +46,7 @@ public class Bot extends ListenerAdapter {
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent event) {
         if (event.getChannel().getId().equals(env.get("DISCORD_CHANNEL_ID")) && !event.getAuthor().getId().equals(event.getJDA().getSelfUser().getId())) {
             try {
-                SocketHandler s = new SocketHandler(event, false, Optional.of("Discord: " + event.getMessage().getContentRaw()));
+                SocketHandler s = new SocketHandler(event, false, Optional.of(event.getMessage().getContentRaw()), Optional.of(event.getAuthor().getAsTag()), Optional.of(event.getAuthor().getAvatarUrl()));
                 s.connect();
             } catch (URISyntaxException e) {
                 e.printStackTrace();
